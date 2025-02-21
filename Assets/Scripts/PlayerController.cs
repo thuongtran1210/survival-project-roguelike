@@ -5,8 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class NewBehaviourScript : MonoBehaviour
 {
+    [Header("Elements")]
     private Rigidbody2D rig;
     [SerializeField] MobileJoystick playerJoystick;
+
+    [Header("Settings")]
     [SerializeField] private float moveSpeed;
     
     private void Awake()
@@ -19,14 +22,8 @@ public class NewBehaviourScript : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        rig.velocity = playerJoystick.GetMoveVector() * moveSpeed *  Time.deltaTime;
-    }
     private void FixedUpdate()
     {
-        
+        rig.velocity = playerJoystick.GetMoveVector() * moveSpeed * Time.deltaTime;
     }
 }
