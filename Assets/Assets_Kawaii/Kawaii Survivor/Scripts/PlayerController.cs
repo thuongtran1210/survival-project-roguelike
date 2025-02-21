@@ -5,9 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class NewBehaviourScript : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rig;
-    [SerializeField] private Vector2 moveDirection;
-    [SerializeField] private float speed;
+    private Rigidbody2D rig;
+    [SerializeField] MobileJoystick playerJoystick;
+    [SerializeField] private float moveSpeed;
+    
     private void Awake()
     {
         rig = GetComponent<Rigidbody2D>();
@@ -21,12 +22,11 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveDirection.x = Input.GetAxisRaw("Horizontal");
-        moveDirection.y = Input.GetAxisRaw("Vertical");
-        
+
+        rig.velocity = playerJoystick.GetMoveVector() * moveSpeed *  Time.deltaTime;
     }
     private void FixedUpdate()
     {
-        rig.velocity = moveDirection * speed;
+        
     }
 }
