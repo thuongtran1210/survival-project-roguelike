@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
         targetPosition.z = -10;
 
         targetPosition.x = Mathf.Clamp(targetPosition.x, -minMaxXY.x, minMaxXY.x);
-        targetPosition.y = Mathf.Clamp(targetPosition.x, -minMaxXY.y, minMaxXY.y);
+        targetPosition.y = Mathf.Clamp(targetPosition.y, -minMaxXY.y, minMaxXY.y);
 
         this.transform.position = targetPosition;
 
