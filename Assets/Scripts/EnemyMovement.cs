@@ -8,8 +8,14 @@ public class EnemyMovement : MonoBehaviour
 {
     [Header("Elements")]
     private Player player;
+
+    [Header("Spawn Indicator")]
+    [SerializeField] SpriteRenderer renderer;
+    [SerializeField] SpriteRenderer spawnIndicator;
+    private bool hasSpawned = false;
+
     [Header("Settings")]
-    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float moveSpeed;
     [SerializeField] private float playerDetectionRadius;
 
     [Header("Effects")]
@@ -23,14 +29,45 @@ public class EnemyMovement : MonoBehaviour
             
             Destroy(gameObject);
         }
+        // An renderer cua Enemy
+        renderer.enabled = false;
+        // Hien chi bao xuat hien
+        
+        spawnIndicator.enabled = true;
+        // Animation (scale) cho chi bao xuat hien
+        Vector3 targetScale = spawnIndicator.transform.localScale * 1.2f;
+        LeanTween.scale(spawnIndicator.gameObject,targetScale, .3f)
+            .setLoopPingPong(4)
+            .setOnComplete(SpawnSequenceCompleted);
+
+        // Hien thi ke thu sau khi thuc hien Anmation Indicator
+        // An chi bao xuat hien
+        // Thuc hien  FollowPlayer Attackk
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!hasSpawned)
+            return;
+
         FollowPlayer();
         TryAttack();
+    
+
       
+    }
+    //Thuc hien sau khi Animation Pingpong Indicator thuc hien xong
+    private void SpawnSequenceCompleted()
+    {
+        // Hien renderer cua Enemy
+        renderer.enabled = true;
+        // An chi bao xuat hien
+
+        spawnIndicator.enabled = false;
+        hasSpawned = true;
+
+
     }
     private void FollowPlayer()
     {

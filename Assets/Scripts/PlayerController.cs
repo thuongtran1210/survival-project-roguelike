@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("Elements")]
     private Rigidbody2D rig;
