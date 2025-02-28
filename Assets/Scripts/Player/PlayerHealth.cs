@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour
 
         UpdateUI();
 
-        Debug.Log("Health: " + this.health);
+        
 
         if (health <= 0)
         {
