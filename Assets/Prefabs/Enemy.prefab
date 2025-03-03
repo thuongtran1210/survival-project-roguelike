@@ -152,6 +152,7 @@ MonoBehaviour:
   healthText: {fileID: 8428643177714411735}
   renderer: {fileID: 7497055209819956939}
   spawnIndicator: {fileID: 2346710260975244778}
+  collider: {fileID: 8320792978276420847}
   damage: 1
   attackFrequency: 1
   playerDetectionRadius: 1
@@ -176,7 +177,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7427166590799310971}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

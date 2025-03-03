@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    enum State 
+    enum State
     {
         Idle,
         Attack
@@ -14,6 +14,7 @@ public class Weapon : MonoBehaviour
 
     [Header("Elements")]
     [SerializeField] private Transform hitDetectionTransform;
+    [SerializeField] private BoxCollider2D hitCollider;
     [SerializeField] private float hitDetectionRadius;
 
     [Header("Settings")]
@@ -39,7 +40,7 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch(state)
+        switch (state)
         {
             case State.Idle:
                 AutoAim();
@@ -75,15 +76,17 @@ public class Weapon : MonoBehaviour
     {
         Enemy closestEnemy = GetClosestEnemy();
         Vector2 targetUpVector = Vector3.up;
-        
+
         if (closestEnemy != null)
         {
-            ManageAttack();
+
             targetUpVector = (closestEnemy.transform.position - this.transform.position).normalized;
+            transform.up = targetUpVector;
+            ManageAttack();
         }
         transform.up = Vector3.Lerp(transform.up, targetUpVector, Time.deltaTime * aimLerp);
         IncrementAttackTimer();
-        
+
     }
 
     private void ManageAttack()
@@ -102,19 +105,23 @@ public class Weapon : MonoBehaviour
 
     private void Attack()
     {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(hitDetectionTransform.position,
-            hitDetectionRadius,
-            enemyMask);
+        //Collider2D[] enemies = Physics2D.OverlapCircleAll(hitDetectionTransform.position,
+        //    hitDetectionRadius,
+        //    enemyMask);
+        Collider2D[] enemies = Physics2D.OverlapBoxAll(hitDetectionTransform.position
+            ,hitCollider.bounds.size
+            ,hitDetectionTransform.localEulerAngles.z
+            ,enemyMask);
 
         for (int i = 0; i < enemies.Length; i++)
         {
             Enemy enemy = enemies[i].GetComponent<Enemy>();
-            if(!damageEnemies.Contains(enemy))
+            if (!damageEnemies.Contains(enemy))
             {
                 enemy.TakeDamage(damage);
                 damageEnemies.Add(enemy);
             }
-           
+
         }
 
     }
