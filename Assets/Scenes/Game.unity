@@ -10176,6 +10176,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25e4516010f89f4439a2f16820c950bd, type: 3}
+--- !u!212 &623349638 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3317283724579614079, guid: e97b9d48ab6795e4093cd46f1b5483cb, type: 3}
+  m_PrefabInstance: {fileID: 1037078274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &682002310
 GameObject:
   m_ObjectHideFlags: 0
@@ -11148,6 +11153,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 33375974}
     m_Modifications:
+    - target: {fileID: 645268965065100957, guid: e97b9d48ab6795e4093cd46f1b5483cb, type: 3}
+      propertyPath: _collider
+      value: 
+      objectReference: {fileID: 1190295999}
+    - target: {fileID: 645268965065100957, guid: e97b9d48ab6795e4093cd46f1b5483cb, type: 3}
+      propertyPath: _renderer
+      value: 
+      objectReference: {fileID: 623349638}
     - target: {fileID: 1313399225278739418, guid: e97b9d48ab6795e4093cd46f1b5483cb, type: 3}
       propertyPath: damage
       value: 1
@@ -11166,11 +11179,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1978270891610402167, guid: e97b9d48ab6795e4093cd46f1b5483cb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -5.86
       objectReference: {fileID: 0}
     - target: {fileID: 1978270891610402167, guid: e97b9d48ab6795e4093cd46f1b5483cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.18
       objectReference: {fileID: 0}
     - target: {fileID: 1978270891610402167, guid: e97b9d48ab6795e4093cd46f1b5483cb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11500,6 +11513,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 0}
+--- !u!58 &1190295999 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5676512369602818687, guid: e97b9d48ab6795e4093cd46f1b5483cb, type: 3}
+  m_PrefabInstance: {fileID: 1037078274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1209118854
 GameObject:
   m_ObjectHideFlags: 0
@@ -12330,7 +12348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c04b1c55e2c66e64bb8d36d6f11227cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 1983299683}
+  _collider: {fileID: 1983299683}
 --- !u!114 &1983299685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12402,14 +12420,6 @@ PrefabInstance:
     - target: {fileID: 7427166590799310971, guid: 25e4516010f89f4439a2f16820c950bd, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 7427166590799310971, guid: 25e4516010f89f4439a2f16820c950bd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8799933691211758042, guid: 25e4516010f89f4439a2f16820c950bd, type: 3}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

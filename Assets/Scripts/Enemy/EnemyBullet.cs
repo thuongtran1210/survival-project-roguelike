@@ -7,7 +7,7 @@ public class EnemyBullet : MonoBehaviour
 {
     [Header("Elements")]
     private Rigidbody2D rig;
-    private Collider2D collider;
+    private Collider2D _collider;
     private RangeEnemyAttack rangeEnemyAttack;
 
     [Header("Settings")]
@@ -16,7 +16,7 @@ public class EnemyBullet : MonoBehaviour
     private void Awake()
     {
         rig = GetComponent<Rigidbody2D>();
-        collider = GetComponent<Collider2D>();
+        _collider = GetComponent<Collider2D>();
 
         LeanTween.delayedCall(gameObject,5, ()=> rangeEnemyAttack.ReleaseBullet(this));
 
@@ -39,7 +39,7 @@ public class EnemyBullet : MonoBehaviour
         {
             LeanTween.cancel(gameObject);
             player.TakeDamage(damage);
-            this.collider.enabled = false;
+            this._collider.enabled = false;
             rangeEnemyAttack.ReleaseBullet(this);
         }
     }
@@ -47,6 +47,6 @@ public class EnemyBullet : MonoBehaviour
     public void Reload()
     {
         rig.velocity = Vector2.zero;
-        collider.enabled = true;
+        _collider.enabled = true;
     }
 }

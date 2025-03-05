@@ -149,14 +149,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
-  healthText: {fileID: 8428643177714411735}
-  renderer: {fileID: 7497055209819956939}
+  _renderer: {fileID: 7497055209819956939}
   spawnIndicator: {fileID: 2346710260975244778}
-  collider: {fileID: 8320792978276420847}
+  _collider: {fileID: 8320792978276420847}
+  passAwayParticles: {fileID: 939985562239521637}
+  playerDetectionRadius: 1
   damage: 1
   attackFrequency: 1
-  playerDetectionRadius: 1
-  passAwayParticles: {fileID: 939985562239521637}
 --- !u!114 &3007320317334405256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
+  attackDistance: 0
 --- !u!58 &8320792978276420847
 CircleCollider2D:
   m_ObjectHideFlags: 0

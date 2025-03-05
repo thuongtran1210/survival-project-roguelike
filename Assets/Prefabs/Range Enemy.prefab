@@ -279,9 +279,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1978270891610402167}
   - component: {fileID: 645268965065100957}
-  - component: {fileID: 3746438429558861406}
   - component: {fileID: 8565511840328520026}
   - component: {fileID: 5676512369602818687}
+  - component: {fileID: 1313399225278739418}
   m_Layer: 3
   m_Name: Range Enemy
   m_TagString: Untagged
@@ -322,27 +322,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
-  renderer: {fileID: 3317283724579614079}
+  _renderer: {fileID: 3317283724579614079}
   spawnIndicator: {fileID: 6592330899591791883}
-  collider: {fileID: 5676512369602818687}
+  _collider: {fileID: 5676512369602818687}
   passAwayParticles: {fileID: 5559627758254320547}
   playerDetectionRadius: 5
---- !u!114 &3746438429558861406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2119057278756120643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b74dc623ab57314a824d481e2f44239, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootingPoint: {fileID: 142658395904116209}
-  bulletPrefab: {fileID: -5824256675897149625, guid: c6f6555ea0e549e4e8617c09a2e11f3a, type: 3}
-  damage: 1
-  attackFrequency: 1
 --- !u!114 &8565511840328520026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +376,22 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.43}
   serializedVersion: 2
   m_Radius: 0.41678315
+--- !u!114 &1313399225278739418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119057278756120643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12f045878c492274399b03feb54f3198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootingPoint: {fileID: 142658395904116209}
+  bulletPrefab: {fileID: -5824256675897149625, guid: c6f6555ea0e549e4e8617c09a2e11f3a, type: 3}
+  damage: 1
+  attackFrequency: 2
 --- !u!1 &4137138046555746964
 GameObject:
   m_ObjectHideFlags: 0
