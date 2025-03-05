@@ -8,18 +8,27 @@ public class EnemyMovement : MonoBehaviour
 {
     [Header("Elements")]
     private Player player;
+
     [Header("Settings")]
     [SerializeField] private float moveSpeed;
+
+
+
+
+    [Header("Range Enemy")]
+    [SerializeField]  private float attackDistance;
+
     void Update()
     {
-        if (player != null)
-            FollowPlayer(); 
+        //if (player != null)
+        //    FollowPlayer(); 
     }
     public void StorePlayer(Player player)
     {
         this.player = player;
+
     }
-    private void FollowPlayer()
+    public void FollowPlayer()
     {
         Vector2 direction = (player.transform.position - this.transform.position).normalized;
         Vector2 targetPostion = (Vector2)this.transform.position + direction * moveSpeed * Time.deltaTime;

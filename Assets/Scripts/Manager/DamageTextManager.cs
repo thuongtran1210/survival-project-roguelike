@@ -8,15 +8,17 @@ public class DamageTextManager : MonoBehaviour
     [Header("Elements")]
     [SerializeField] private DamageText damageTextPrefab;
 
+
+
     [Header("Pooling")]
     private ObjectPool<DamageText> damageTextPool;
     private void Awake()
     {
-        Enemy.onDamageTaken += EnemyHitCallback;
+        MeleeEnemy.onDamageTaken += EnemyHitCallback;
     }
     private void OnDestroy()
     {
-        Enemy.onDamageTaken -= EnemyHitCallback;
+        MeleeEnemy.onDamageTaken -= EnemyHitCallback;
     }
     // Start is called before the first frame update
     void Start()

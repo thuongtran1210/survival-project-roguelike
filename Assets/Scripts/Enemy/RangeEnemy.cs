@@ -1,46 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using System;
-[RequireComponent(typeof(EnemyMovement))]
-public class Enemy : MonoBehaviour
+using UnityEngine;
+[RequireComponent(typeof(EnemyMovement), typeof(RangeEnemyAttack))]
+public class RangeEnemy : MonoBehaviour
 {
-    [Header("Components")] 
+    [Header("Components")]
     private EnemyMovement movement;
+    private RangeEnemyAttack attack;
 
     [Header("Elements")]
     private Player player;
 
     [Header("Health")]
     [SerializeField] private int maxHealth;
-    [SerializeField] private TextMeshPro healthText;
+   
     private int health;
 
     [Header("Spawn Indicator")]
-    [SerializeField] SpriteRenderer renderer;
-    [SerializeField] SpriteRenderer spawnIndicator;
+    [SerializeField] private SpriteRenderer renderer;
+    [SerializeField] private SpriteRenderer spawnIndicator;
     private bool hasSpawned = false;
     [SerializeField] private Collider2D collider;
 
-    [Header("Attack")]
-    [SerializeField] private int damage;
-    [SerializeField] private float attackFrequency;
-    [SerializeField] private float playerDetectionRadius;
-    private float attackDelay;
-    private float attackTimer;
-    [Header("Actions")]
-    public static Action<int , Vector2> onDamageTaken;
-
     [Header("Effects")]
     [SerializeField] private ParticleSystem passAwayParticles;
+
+    [Header("Attack")]
+    [SerializeField] private float playerDetectionRadius;
+    [Header("Actions")]
+    public static Action<int, Vector2> onDamageTaken;
     // Start is called before the first frame update
     void Start()
     {
         this.health = maxHealth;
-        healthText.text = health.ToString();
+
         movement = GetComponent<EnemyMovement>();
+        attack = GetComponent<RangeEnemyAttack>();
         player = FindAnyObjectByType<Player>();
+
+        attack.StorePlayer(player);
         if (player == null)
         {
 
@@ -48,9 +48,29 @@ public class Enemy : MonoBehaviour
         }
         StartSpawnSequence();
 
-        attackDelay = 1f / attackFrequency;
-        
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!renderer.enabled)
+            return;
+
+        ManageAttack();
+
+    }
+
+    private void ManageAttack()
+    {
+        float distanceToPlayer = Vector2.Distance(this.transform.position, player.transform.position);
+
+        if (distanceToPlayer > playerDetectionRadius)
+            movement.FollowPlayer();
+        else
+            TryAttack();
+
+    }
+
     private void StartSpawnSequence()
     {
         SetRendererVisibility(false);
@@ -58,14 +78,12 @@ public class Enemy : MonoBehaviour
         LeanTween.scale(spawnIndicator.gameObject, targetScale, .3f)
             .setLoopPingPong(4)
             .setOnComplete(SpawnSequenceCompleted);
-       
     }
-
     private void SpawnSequenceCompleted()
     {
         SetRendererVisibility(true);
         hasSpawned = true;
-        collider.enabled =  true;
+        collider.enabled = true;
         movement.StorePlayer(player);
     }
     private void SetRendererVisibility(bool visibility = true)
@@ -74,36 +92,15 @@ public class Enemy : MonoBehaviour
         spawnIndicator.enabled = !visibility;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (attackTimer >= attackDelay)
-        {
-            TryAttack();
-        }
-        else
-        {
-            Wait();
-        }
-    }
-    private void Wait()
-    {
-        attackTimer += Time.deltaTime;
-    }
     private void TryAttack()
     {
-        float distanceToPlayer = Vector2.Distance(this.transform.position, player.transform.position);
-        if (distanceToPlayer <= playerDetectionRadius)
-        {
-            Attack();
-
-        }
+        attack.AutoAim();
     }
     public void TakeDamage(int damage)
     {
         int realDamage = Mathf.Min(damage, health);
         this.health -= realDamage;
-        healthText.text = health.ToString();
+
 
         onDamageTaken?.Invoke(damage, this.transform.position);
 
@@ -112,11 +109,7 @@ public class Enemy : MonoBehaviour
             PassAway();
         }
     }
-    private void Attack()
-    {
-        attackTimer = 0f;
-        player.TakeDamage(damage);
-    }
+
 
     private void PassAway()
     {
