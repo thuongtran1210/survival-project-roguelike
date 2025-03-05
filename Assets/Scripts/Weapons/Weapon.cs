@@ -22,14 +22,14 @@ public class Weapon : MonoBehaviour
     [SerializeField] private LayerMask enemyMask;
 
     [Header("Atack")]
-    [SerializeField] private int damage;
-    [SerializeField] private float attackDelay;
-    private float attackTimer;
+    [SerializeField] protected int damage;
+    [SerializeField] protected float attackDelay;
+    protected float attackTimer;
     [SerializeField] private Animator animator;
     [SerializeField] private List<Enemy> damageEnemies = new List<Enemy>();
 
     [Header("Animations")]
-    [SerializeField] private float aimLerp;
+    [SerializeField] protected float aimLerp;
     // Start is called before the first frame update
     void Start()
     {
@@ -122,7 +122,7 @@ public class Weapon : MonoBehaviour
         }
 
     }
-    private Enemy GetClosestEnemy()
+    protected Enemy GetClosestEnemy()
     {
         Enemy closestEnemy = null;
 
@@ -152,6 +152,8 @@ public class Weapon : MonoBehaviour
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(this.transform.position, range);
 
+        if (hitDetectionTransform == null)
+            return;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(hitDetectionTransform.position, hitDetectionRadius);
 
