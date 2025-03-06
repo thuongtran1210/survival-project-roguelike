@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class RangeWeapon : Weapon
 {
@@ -9,10 +10,40 @@ public class RangeWeapon : Weapon
     [SerializeField] private Bullet bulletPrefab;
     [SerializeField] private Transform shootingPoint;
 
+    [Header("Pooling")]
+    private ObjectPool<Bullet> bulletPool;
     // Start is called before the first frame update
     void Start()
     {
-        
+        bulletPool = new ObjectPool<Bullet>(CreateFunction, ActionOnGet, ActionOnRelease, ActionOnDestroy);
+    }
+    private Bullet CreateFunction()
+    {
+        Bullet bulletInstance = Instantiate(bulletPrefab, shootingPoint.position, Quaternion.identity);
+        bulletInstance.Configure(this);
+
+        return bulletInstance;
+    }
+
+    private void ActionOnGet(Bullet bullet)
+    {
+        bullet.Reload();
+        bullet.transform.position = shootingPoint.position;
+        bullet.gameObject.SetActive(true);
+    }
+
+    private void ActionOnRelease(Bullet bullet)
+    {
+        bullet.gameObject.SetActive(false);
+    }
+
+    private void ActionOnDestroy(Bullet bullet)
+    {
+        Destroy(gameObject);
+    }
+    public void ReleaseBullet(Bullet bullet)
+    {
+        bulletPool.Release(bullet); 
     }
 
     // Update is called once per frame
@@ -47,9 +78,7 @@ public class RangeWeapon : Weapon
 
     private void Shoot()
     {
-        Bullet bulletInstance = Instantiate(bulletPrefab
-            ,shootingPoint.position
-            ,Quaternion.identity);
+        Bullet bulletInstance = bulletPool.Get();
         bulletInstance.Shoot(damage, transform.up);
     }
 }
