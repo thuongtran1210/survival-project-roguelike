@@ -14,6 +14,7 @@ public class Bullet : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private LayerMask enemyMask;
+    private bool isCriticalHit;
     private int damage;
     private Enemy target;
     private void Awake()
@@ -26,10 +27,11 @@ public class Bullet : MonoBehaviour
     {
          this.rangeWeapon = rangeWeapon;
     }
-    public void Shoot(int damge, Vector2 direction)
+    public void Shoot(int damge, Vector2 direction, bool isCriticalHit)
     {
         Invoke("Release", 1);
         this.damage = damge;  
+        this.isCriticalHit = isCriticalHit;
         transform.right = direction;
         rig.velocity = direction * moveSpeed;
     }
@@ -51,7 +53,7 @@ public class Bullet : MonoBehaviour
 
     private void Attack(Enemy enemy)
     {
-        enemy.TakeDamage(damage);
+        enemy.TakeDamage(damage, isCriticalHit);
     }
     private void Release()
     {

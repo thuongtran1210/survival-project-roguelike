@@ -104,7 +104,9 @@ public class MeleeWepon : Weapon
             Enemy enemy = enemies[i].GetComponent<Enemy>();
             if (!damageEnemies.Contains(enemy))
             {
-                enemy.TakeDamage(damage);
+                int damage = GetDamage(out bool isCriticalHit);
+
+                enemy.TakeDamage(damage, isCriticalHit);
                 damageEnemies.Add(enemy);
             }
 
