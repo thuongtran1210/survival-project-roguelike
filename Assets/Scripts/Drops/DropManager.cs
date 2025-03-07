@@ -6,6 +6,7 @@ public class DropManager : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] private Candy candyPrefab;
+    [SerializeField] private Cash cashPrefab;
     private void Awake()
     {
         Enemy.onPassedAway += EnemyPassedAwayCallBack;
@@ -30,8 +31,11 @@ public class DropManager : MonoBehaviour
     }
     private void EnemyPassedAwayCallBack(Vector2 enemyPositon)
     {
-       Candy candyIntance = Instantiate(candyPrefab, enemyPositon, Quaternion.identity, transform);
-        candyIntance.name = $" Candy: {Random.Range(1,5001)}";
+        bool shouldSpawnCash = Random.Range(0, 101) <= 20;
+
+        GameObject dropable = shouldSpawnCash ? cashPrefab.gameObject : candyPrefab.gameObject;
+        GameObject dropableIntance = Instantiate(dropable, enemyPositon, Quaternion.identity, transform);
+        dropableIntance.name = $" Dropable: {Random.Range(1,5001)}";
     }
 
 }

@@ -30,7 +30,15 @@ public class PlayerDetection : MonoBehaviour
             Debug.Log($"Collected: {candy.name}");
             candy.Collect(GetComponent<Player>());
         }
+        if (collider.TryGetComponent(out Cash cash))
+        {
+            if (!collider.IsTouching(daveCollider))
+                return;
+            Debug.Log($"Collected: {cash.name}");
+            cash.Collect(GetComponent<Player>());
+        }
     }
+
 
 
 }
