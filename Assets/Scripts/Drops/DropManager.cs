@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +30,8 @@ public class DropManager : MonoBehaviour
     }
     private void EnemyPassedAwayCallBack(Vector2 enemyPositon)
     {
-        Instantiate(candyPrefab, enemyPositon, Quaternion.identity, transform);
+       Candy candyIntance = Instantiate(candyPrefab, enemyPositon, Quaternion.identity, transform);
+        candyIntance.name = $" Candy: {Random.Range(1,5001)}";
     }
 
 }
