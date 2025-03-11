@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerDetection : MonoBehaviour
 {
     [Header("Colliders")]
-    [SerializeField] private CircleCollider2D daveCollider;
+    [SerializeField] private CircleCollider2D collecttableCollider;
     //private void FixedUpdate()
     //{
     //    Collider2D[] candyColliders = Physics2D.OverlapCircleAll(
@@ -23,20 +23,14 @@ public class PlayerDetection : MonoBehaviour
     //}
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.TryGetComponent(out Candy candy))
+        if (collider.TryGetComponent(out ICollectable collectable))
         {
-            if (!collider.IsTouching(daveCollider))
+            if (!collider.IsTouching(collecttableCollider))
                 return;
-            Debug.Log($"Collected: {candy.name}");
-            candy.Collect(GetComponent<Player>());
+         
+            collectable.Collect(GetComponent<Player>());
         }
-        if (collider.TryGetComponent(out Cash cash))
-        {
-            if (!collider.IsTouching(daveCollider))
-                return;
-            Debug.Log($"Collected: {cash.name}");
-            cash.Collect(GetComponent<Player>());
-        }
+
     }
 
 
