@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea59a1750465d148b3c329a1959fbcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 2
   attackDistance: 2.65
 --- !u!58 &5676512369602818687
 CircleCollider2D:
@@ -391,7 +391,7 @@ MonoBehaviour:
   shootingPoint: {fileID: 142658395904116209}
   bulletPrefab: {fileID: -5824256675897149625, guid: c6f6555ea0e549e4e8617c09a2e11f3a, type: 3}
   damage: 1
-  attackFrequency: 2
+  attackFrequency: 1
 --- !u!1 &4137138046555746964
 GameObject:
   m_ObjectHideFlags: 0
