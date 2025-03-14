@@ -11,6 +11,8 @@ public class PlayerLevel : MonoBehaviour
     private int requiredXp;
     private int currentXp;
     private int level;
+    private int levelsEarnedThisWave;
+
     [Header("Visual")]
     [SerializeField] private Slider xpBar;
     [SerializeField] private TextMeshProUGUI levelText;
@@ -48,8 +50,18 @@ public class PlayerLevel : MonoBehaviour
     private void LevelUp()
     {
         level++;
+        levelsEarnedThisWave++;
         currentXp = 0;
         UpdateRequiredXp();
+    }
+    public bool HasLeveledUp()
+    {
+        if(levelsEarnedThisWave > 0)
+        {
+            levelsEarnedThisWave--;
+            return true;
+        }
+        return false;
     }
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using NaughtyAttributes;
 using System.Threading;
 [RequireComponent(typeof(WaveManagerUI))]
-public class WaveManager : MonoBehaviour
+public class WaveManager : MonoBehaviour, IGameStateListener
 {
     [Header("Elements")]
     [SerializeField] private Player player;
@@ -26,7 +26,6 @@ public class WaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartWave(curentWaveIndex);
     }
 
     // Update is called once per frame
@@ -90,12 +89,17 @@ public class WaveManager : MonoBehaviour
         if (curentWaveIndex >= waves.Length)
         {
             ui.UpdateTimerText("");
-            ui.UpdateWaveText("Wave Competed");
+            ui.UpdateWaveText("State Competed");
+            GameManager.Instance.SetGameState(GameState.STAGECOMPLETE);
         }
         else
         {
-            StartWave(curentWaveIndex);
+            GameManager.Instance.WaveCompletedCallBack();
         }
+    }
+    private void StartNextWave()
+    {
+        StartWave(curentWaveIndex);
     }
     private void DefeatAllEnemies()
     {
@@ -112,7 +116,19 @@ public class WaveManager : MonoBehaviour
         return targetPositon;
     }
 
-
+    public void GameStateChangedCallBack(GameState gameState)
+    {
+        switch(gameState)
+        {
+            case GameState.GAME:
+                StartNextWave();
+                break;
+            case GameState.GAMEOVER:
+                isTimerOn = false;
+                DefeatAllEnemies();
+                break;
+        }
+    }
 }
 [System.Serializable]
 public struct Wave
