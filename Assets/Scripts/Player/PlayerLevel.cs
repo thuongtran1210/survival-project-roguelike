@@ -16,6 +16,9 @@ public class PlayerLevel : MonoBehaviour
     [Header("Visual")]
     [SerializeField] private Slider xpBar;
     [SerializeField] private TextMeshProUGUI levelText;
+
+    [Header("DEBUG")]
+    [SerializeField] private bool DEBUG;
     private void Awake()
     {
         Candy.onColledted += CandyCollectedCallBack;
@@ -56,6 +59,9 @@ public class PlayerLevel : MonoBehaviour
     }
     public bool HasLeveledUp()
     {
+        if(DEBUG) 
+            return true;
+        return true;
         if(levelsEarnedThisWave > 0)
         {
             levelsEarnedThisWave--;
