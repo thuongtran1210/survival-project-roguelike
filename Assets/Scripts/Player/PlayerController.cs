@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPlayerStatsDependency
 {
     [Header("Elements")]
     private Rigidbody2D rig;
     [SerializeField] MobileJoystick playerJoystick;
 
     [Header("Settings")]
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float baseMoveSpeed;
+    private float moveSpeed;
     
     private void Awake()
     {
@@ -25,5 +26,11 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         rig.velocity = playerJoystick.GetMoveVector() * moveSpeed * Time.deltaTime;
+    }
+
+    public void UpdateStats(PlayerStatsManager playerStatsManager)
+    {
+       float moveSpeedPercent =  playerStatsManager.GetStatValue(Stat.MoveSpeed) /100;
+        moveSpeed = baseMoveSpeed * (1 + moveSpeedPercent);
     }
 }

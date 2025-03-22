@@ -61,14 +61,11 @@ public class PlayerLevel : MonoBehaviour
     {
         if(DEBUG) 
             return true;
-        return true;
-        if(levelsEarnedThisWave > 0)
+        if (levelsEarnedThisWave > 0)
         {
             levelsEarnedThisWave--;
             return true;
-        }
+        } 
         return false;
     }
-
-
 }

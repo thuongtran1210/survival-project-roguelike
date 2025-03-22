@@ -9,7 +9,8 @@ using NaughtyAttributes;
 public class WaveTransitionManager : MonoBehaviour, IGameStateListener
 {
     [Header("Elements")]
-    [SerializeField] private Button[] upgradeContainers;
+    [SerializeField] private PlayerStatsManager playerStatsManager;
+    [SerializeField] private UpgradeContainer[] upgradeContainers;
 
     // Start is called before the first frame update
     void Start()
@@ -40,11 +41,85 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
             Stat stat = (Stat)Enum.GetValues(typeof(Stat)).GetValue(randomIndex);
 
             string randomStatString = Enums.FormatStatName(stat);
-            upgradeContainers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = randomStatString;
 
-            upgradeContainers[i].onClick.RemoveAllListeners();
+            string buttonString;
 
-            upgradeContainers[i].onClick.AddListener(() => Debug.Log(randomStatString));
+            Action action = GetActionToPerform(stat, out buttonString);
+
+            upgradeContainers[i].Configure(null, randomStatString, buttonString);
+
+
+            upgradeContainers[i].Button.onClick.RemoveAllListeners();
+
+            upgradeContainers[i].Button.onClick.AddListener(() => action?.Invoke());
+
+            upgradeContainers[i].Button.onClick.AddListener(()=> BonusSelectedCallback());
         }
+    }
+    private void BonusSelectedCallback()
+    {
+        GameManager.Instance.WaveCompletedCallBack();
+    }
+    private Action GetActionToPerform (Stat stat, out string buttonString)
+    {
+        buttonString = "";
+        float value;
+
+        switch (stat)
+        {
+            case Stat.Attack:
+                value = Random.Range(1, 10);
+                buttonString = $" + {value.ToString()}%";
+                break; 
+            case Stat.AttackSpeed:
+                value = Random.Range(1, 10);
+                buttonString = $" + {value.ToString()}%";
+                break;
+            case Stat.CriticalChance:
+                value = Random.Range(1, 10);
+                buttonString = $" + {value.ToString()}%";
+                break;
+            case Stat.CritilcalPercent:
+                value = Random.Range(1f, 2f);
+                buttonString = $" + {value:F2}";
+                break;
+            case Stat.MoveSpeed:
+                value = Random.Range(1, 10);
+                buttonString = $" + {value.ToString()}%";
+                break;
+            case Stat.MaxHealth:
+                value = Random.Range(1, 5);
+                buttonString = $" + {value}";
+                break;
+            case Stat.HealthRecoverySpeed:
+                value = Random.Range(1, 10);
+                buttonString = $" + {value.ToString()}%";
+                break;
+            case Stat.Armor:
+                value = Random.Range(1, 10);
+                buttonString = $" + {value.ToString()}%";
+                break;
+            case Stat.Luck:
+                value = Random.Range(1, 10);
+                buttonString = $" + {value.ToString()}%";
+                break;
+            case Stat.Dodge:
+                value = Random.Range(1, 10);
+                buttonString = $" + {value.ToString()}%";
+                break;
+            case Stat.LifeSteal:
+                value = Random.Range(1, 10);
+                buttonString = $" + {value.ToString()}%";
+                break;
+
+            case Stat.Range:
+                value = Random.Range(1f, 5f);
+                buttonString = $" + {value:F2}%";
+                break;
+
+            default: return () => Debug.Log("Khong co gia tri");
+        }
+        return () => playerStatsManager.AddPlayerStat(stat, value);
+
     }
 }
