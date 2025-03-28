@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DeBoink Data
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Deboik
-  <Sprite>k__BackingField: {fileID: 0}
-  <PuchasePrice>k__BackingField: 0
-  <Prefab>k__BackingField: {fileID: 0}
-  attack: 0
-  attackSpeed: 0
-  criticalChane: 0
-  criticalPercent: 0
-  range: 0
+  <Sprite>k__BackingField: {fileID: 6766118796701390678, guid: 05c36890be088704da339d14a151f6b2, type: 3}
+  <PuchasePrice>k__BackingField: 20
+  <Prefab>k__BackingField: {fileID: 2379412726371146734, guid: 8ecb77b74c82b2e4892e829bbd9c6648, type: 3}
+  attack: 10
+  attackSpeed: 2
+  criticalChane: 5
+  criticalPercent: 1.5
+  range: 1
