@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerWeapons : MonoBehaviour
 {
+    [Header("Elements")]
+    [SerializeField] private WeaponPosition[] weaponsPositons;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,7 @@ public class PlayerWeapons : MonoBehaviour
     }
     public void AddWeapon(WeaponDataSO selectedWeapon ,int weaponLevel)
     {
-        Debug.Log("Da chon vu khi ten la: " + selectedWeapon.Name + "voi level: "+weaponLevel) ;
+        //Instantiate(selectedWeapon.Prefab, weaponsParent);
+        weaponsPositons[Random.Range(0, weaponsPositons.Length)].AssignWeapon(selectedWeapon.Prefab, weaponLevel);
     }
 }

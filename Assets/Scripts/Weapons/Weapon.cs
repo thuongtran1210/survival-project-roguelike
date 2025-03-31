@@ -24,20 +24,7 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
     [SerializeField] protected float aimLerp;
 
     
-    [field: SerializeField] public int Level { get; private set; }
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
-    }
-    
+    public int Level { get; private set; }
     protected Enemy GetClosestEnemy()
     {
         Enemy closestEnemy = null;
@@ -94,5 +81,10 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatsDependency
 
         if(WeaponData.Prefab.GetType() == typeof(RangeWeapon))
             range = WeaponData.GetStatValue(Stat.Range) * multiplier;
+    }
+    public void UpgradeTo(int targetLevel)
+    {
+        Level = targetLevel;
+        ConfigureStats();
     }
 }
